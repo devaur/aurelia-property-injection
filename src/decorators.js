@@ -41,3 +41,50 @@ export function inject(...rest) {
         }
     };
 }
+
+/**
+ * Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
+ */
+export function all(type: any) {
+    return function (target, key) {
+        inject(All.of(type))(target, key);
+    };
+}
+
+/**
+ * Decorator: Used to inject the dependency from the parent container instead of the current one.
+ */
+export function parent(type?: any) {
+    return function(target, key) {
+        type = type ? type : metadata.get('design:type', target, key);
+        inject(Parent.of(type))(target, key);
+    };
+}
+
+/**
+ * Decorator: Used to allow functions/classes to specify lazy resolution logic.
+ */
+export function lazy(type) {
+    return function(target, key) {
+        inject(Lazy.of(type))(target, key);
+    };
+}
+
+/**
+ * Decorator: Used to allow functions/classes to specify an optional dependency, which will be resolved only if already registred with the container.
+ */
+export function optional(type) {
+    return function(target, key) {
+        type = (type !== undefined) ? type : metadata.get('design:type', target, key);
+        inject(Optional.of(type))(target, key);
+    };
+}
+
+/**
+ * Decorator: Used to allow injecting dependencies but also passing data to the constructor.
+ */
+export function factory(type) {
+    return function (target, key) {
+        inject(Factory.of(type))(target, key);
+    };
+}
