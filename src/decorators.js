@@ -46,7 +46,7 @@ export function inject(...rest) {
 /**
  * Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
  */
-export function all(type: any) {
+export function all(type) {
     return function (target, key) {
         inject(All.of(type))(target, key);
     };
@@ -55,7 +55,7 @@ export function all(type: any) {
 /**
  * Decorator: Used to inject the dependency from the parent container instead of the current one.
  */
-export function parent(type?: any) {
+export function parent(type) {
     return function(target, key) {
         type = (type !== undefined) ? type : metadata.get('design:type', target, key);
         inject(Parent.of(type))(target, key);
