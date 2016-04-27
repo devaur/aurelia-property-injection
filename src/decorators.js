@@ -1,4 +1,5 @@
 import { metadata } from 'aurelia-metadata';
+import { All, Parent, Lazy, Optional, Factory } from 'aurelia-dependency-injection';
 
 /**
 * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
