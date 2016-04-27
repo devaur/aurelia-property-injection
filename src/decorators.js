@@ -56,7 +56,7 @@ export function all(type: any) {
  */
 export function parent(type?: any) {
     return function(target, key) {
-        type = type ? type : metadata.get('design:type', target, key);
+        type = (type !== undefined) ? type : metadata.get('design:type', target, key);
         inject(Parent.of(type))(target, key);
     };
 }
