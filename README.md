@@ -74,7 +74,7 @@ export class MyClass {
 Install the plugin via JSPM:
 
 ```shell
-jspm install aurelia-property-injection=github:heruan/property-injection
+jspm install aurelia-property-injection=github:heruan/aurelia-property-injection
 ```
 
 ## Enabling the plugin
