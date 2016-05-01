@@ -25,12 +25,12 @@ function removeDTSPlugin(options) {
 
 gulp.task('build-index', function(){
   var importsToAdd = [];
-  var files = ['aurelia-inject-properties.js', 'invocation-handler-wrapper.js', 'decorators.js'].map(function(file){
+  var files = ['aurelia-property-injection.js', 'invocation-handler-wrapper.js', 'decorators.js'].map(function(file){
     return paths.root + file;
   });
 
   return gulp.src(files)
-    .pipe(ignore.exclude('aurelia-inject-properties.js'))
+    .pipe(ignore.exclude('aurelia-property-injection.js'))
     .pipe(through2.obj(function(file, enc, callback) {
       file.contents = new Buffer(tools.extractImports(file.contents.toString("utf8"), importsToAdd));
       this.push(file);

@@ -1,12 +1,19 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.autoinject = autoinject;
 exports.inject = inject;
+exports.all = all;
+exports.parent = parent;
+exports.lazy = lazy;
+exports.optional = optional;
+exports.factory = factory;
 
-var _aureliaMetadata = require("aurelia-metadata");
+var _aureliaMetadata = require('aurelia-metadata');
+
+var _aureliaDependencyInjection = require('aurelia-dependency-injection');
 
 function autoinject(potentialTarget, potentialKey) {
     var deco = function deco(target, key, descriptor) {
@@ -42,5 +49,41 @@ function inject() {
         } else {
             target.inject = rest;
         }
+    };
+}
+
+function all(type) {
+    return function (target, key, desc) {
+        inject(_aureliaDependencyInjection.All.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+function parent(type) {
+    return function (target, key, desc) {
+        if (type === undefined) {
+            type = _aureliaMetadata.metadata.get('design:type', target, key);
+        }
+        inject(_aureliaDependencyInjection.Parent.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+function lazy(type) {
+    return function (target, key, desc) {
+        inject(_aureliaDependencyInjection.Lazy.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+function optional(type) {
+    return function (target, key, desc) {
+        if (type === undefined) {
+            type = _aureliaMetadata.metadata.get('design:type', target, key);
+        }
+        inject(_aureliaDependencyInjection.Optional.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+function factory(type) {
+    return function (target, key, desc) {
+        inject(_aureliaDependencyInjection.Factory.of(type))(target, key, desc ? desc : {});
     };
 }

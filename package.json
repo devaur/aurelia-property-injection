@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-inject-properties",
+  "name": "aurelia-property-injection",
   "version": "0.1.0",
   "description": "An extension to Aurelia's DI container which supports injection into properties.",
   "keywords": [
@@ -10,14 +10,14 @@
   ],
   "homepage": "http://aurelia.io",
   "bugs": {
-    "url": "https://github.com/heruan/inject-properties/issues"
+    "url": "https://github.com/heruan/property-injection/issues"
   },
   "license": "CC0-1.0",
   "author": "Giovanni Lovato <heruan@aldu.net>",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/heruan/inject-properties"
+    "url": "http://github.com/heruan/property-injection"
   },
   "devDependencies": {
     "aurelia-tools": "^0.1.22",
@@ -56,12 +56,13 @@
     "object.assign": "^1.0.3",
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
+    "through2": "^2.0.1",
     "vinyl-paths": "^1.0.0",
     "yargs": "^2.1.1"
   },
   "jspm": {
     "registry": "npm",
-    "main": "aurelia-inject-properties",
+    "main": "aurelia-property-injection",
     "format": "amd",
     "directories": {
       "dist": "dist/amd"

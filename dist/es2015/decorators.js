@@ -1,4 +1,5 @@
 import { metadata } from 'aurelia-metadata';
+import { All, Parent, Lazy, Optional, Factory } from 'aurelia-dependency-injection';
 
 export function autoinject(potentialTarget, potentialKey) {
     let deco = function (target, key, descriptor) {
@@ -30,5 +31,41 @@ export function inject(...rest) {
         } else {
             target.inject = rest;
         }
+    };
+}
+
+export function all(type) {
+    return function (target, key, desc) {
+        inject(All.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+export function parent(type) {
+    return function (target, key, desc) {
+        if (type === undefined) {
+            type = metadata.get('design:type', target, key);
+        }
+        inject(Parent.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+export function lazy(type) {
+    return function (target, key, desc) {
+        inject(Lazy.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+export function optional(type) {
+    return function (target, key, desc) {
+        if (type === undefined) {
+            type = metadata.get('design:type', target, key);
+        }
+        inject(Optional.of(type))(target, key, desc ? desc : {});
+    };
+}
+
+export function factory(type) {
+    return function (target, key, desc) {
+        inject(Factory.of(type))(target, key, desc ? desc : {});
     };
 }

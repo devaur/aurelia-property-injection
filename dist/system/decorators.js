@@ -1,10 +1,16 @@
-"use strict";
+'use strict';
 
-System.register(["aurelia-metadata"], function (_export, _context) {
-    var metadata;
+System.register(['aurelia-metadata', 'aurelia-dependency-injection'], function (_export, _context) {
+    var metadata, All, Parent, Lazy, Optional, Factory;
     return {
         setters: [function (_aureliaMetadata) {
             metadata = _aureliaMetadata.metadata;
+        }, function (_aureliaDependencyInjection) {
+            All = _aureliaDependencyInjection.All;
+            Parent = _aureliaDependencyInjection.Parent;
+            Lazy = _aureliaDependencyInjection.Lazy;
+            Optional = _aureliaDependencyInjection.Optional;
+            Factory = _aureliaDependencyInjection.Factory;
         }],
         execute: function () {
             function autoinject(potentialTarget, potentialKey) {
@@ -21,7 +27,7 @@ System.register(["aurelia-metadata"], function (_export, _context) {
                 return potentialTarget ? deco(potentialTarget, potentialKey) : deco;
             }
 
-            _export("autoinject", autoinject);
+            _export('autoinject', autoinject);
 
             function inject() {
                 for (var _len = arguments.length, rest = Array(_len), _key = 0; _key < _len; _key++) {
@@ -46,7 +52,53 @@ System.register(["aurelia-metadata"], function (_export, _context) {
                 };
             }
 
-            _export("inject", inject);
+            _export('inject', inject);
+
+            function all(type) {
+                return function (target, key, desc) {
+                    inject(All.of(type))(target, key, desc ? desc : {});
+                };
+            }
+
+            _export('all', all);
+
+            function parent(type) {
+                return function (target, key, desc) {
+                    if (type === undefined) {
+                        type = metadata.get('design:type', target, key);
+                    }
+                    inject(Parent.of(type))(target, key, desc ? desc : {});
+                };
+            }
+
+            _export('parent', parent);
+
+            function lazy(type) {
+                return function (target, key, desc) {
+                    inject(Lazy.of(type))(target, key, desc ? desc : {});
+                };
+            }
+
+            _export('lazy', lazy);
+
+            function optional(type) {
+                return function (target, key, desc) {
+                    if (type === undefined) {
+                        type = metadata.get('design:type', target, key);
+                    }
+                    inject(Optional.of(type))(target, key, desc ? desc : {});
+                };
+            }
+
+            _export('optional', optional);
+
+            function factory(type) {
+                return function (target, key, desc) {
+                    inject(Factory.of(type))(target, key, desc ? desc : {});
+                };
+            }
+
+            _export('factory', factory);
         }
     };
 });

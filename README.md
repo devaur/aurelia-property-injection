@@ -1,4 +1,4 @@
-# aurelia-inject-properties
+# aurelia-property-injection
 
 This plugin enables the core Aurelia's DI Container to inject dependencies into class instance properties,
 lifting the constructor from being the dependency bearer and decoupling child classes from parent dependencies.
@@ -21,7 +21,7 @@ the container will produce an instance of `MyClass` with the current `Router` av
 It also provides extended implementations of the core `inject` and `autoinject` decorators, e.g.
 
 ```javascript
-import {inject} from 'aurelia-inject-properties';
+import {inject} from 'aurelia-property-injection';
 import {Router} from 'aurelia-router';
 
 export class MyClass {
@@ -35,7 +35,7 @@ export class MyClass {
 and for TypeScript
 
 ```typescript
-import {autoinject} from 'aurelia-inject-properties';
+import {autoinject} from 'aurelia-property-injection';
 
 export class MyClass {
 
@@ -50,7 +50,7 @@ the dependencies available inside the constructor, so this plugin will also inst
 to invoke a conventional `afterConstructor` callback right after the injection occurs; i.e.
 
 ```javascript
-import {inject} from 'aurelia-inject-properties';
+import {inject} from 'aurelia-property-injection';
 import {Router} from 'aurelia-router';
 
 export class MyClass {
@@ -74,7 +74,7 @@ export class MyClass {
 Install the plugin via JSPM:
 
 ```shell
-jspm install aurelia-inject-properties=github:heruan/inject-properties
+jspm install aurelia-property-injection=github:heruan/property-injection
 ```
 
 ## Enabling the plugin
@@ -86,7 +86,7 @@ export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
     .developmentLogging()
-    .plugin('aurelia-inject-properties');
+    .plugin('aurelia-property-injection');
 
   aurelia.start().then(() => aurelia.setRoot());
 }

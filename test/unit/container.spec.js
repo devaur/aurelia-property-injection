@@ -13,7 +13,7 @@ function getContainer() {
 }
 
 describe('container', () => {
-    describe('inject-properties', () => {
+    describe('property-injection', () => {
         class Logger {
             check = false;
         }
