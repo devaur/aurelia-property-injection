@@ -38,7 +38,7 @@ declare module 'aurelia-property-injection' {
   /**
   * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
   */
-  export function autoinject(potentialTarget: any, potentialKey: any): any;
+  export function autoinject(potentialTarget?: any, potentialKey?: any): any;
   
   /**
   * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.

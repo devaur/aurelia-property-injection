@@ -43,7 +43,7 @@ export class InvocationHandlerWrapper extends InvocationHandler {
 /**
 * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
 */
-export function autoinject(potentialTarget, potentialKey) {
+export function autoinject(potentialTarget?: any, potentialKey?: any): any {
     let deco = function (target, key, descriptor) {
         if (key === undefined) {
             target.inject = metadata.getOwn(metadata.paramTypes, target, key) || Object.freeze([]);
@@ -61,7 +61,7 @@ export function autoinject(potentialTarget, potentialKey) {
 /**
 * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
 */
-export function inject(...rest) {
+export function inject(...rest: any[]): any {
     return function (target, key, descriptor) {
         if (key !== undefined) {
             if (descriptor.configurable) {
