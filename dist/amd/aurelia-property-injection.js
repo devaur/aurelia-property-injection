@@ -20,6 +20,5 @@ define(["exports", "./decorators", "./invocation-handler-wrapper"], function (ex
             return new _invocationHandlerWrapper.InvocationHandlerWrapper(handler.fn, handler.invoker, handler.dependencies);
         });
     }
-
     exports.InvocationHandlerWrapper = _invocationHandlerWrapper.InvocationHandlerWrapper;
 });

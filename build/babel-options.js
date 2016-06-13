@@ -11,18 +11,11 @@ exports.base = function() {
     moduleIds: false,
     comments: false,
     compact: false,
-    code: true,
+    code:true,
     presets: [ 'es2015-loose', 'stage-1'],
     plugins: [
       'syntax-flow',
       'transform-decorators-legacy',
-      ['babel-dts-generator', {
-          packageName: paths.packageName,
-          typings: '',
-          suppressModulePath: true,
-          suppressComments: false,
-          memberOutputFilter: /^_.*/
-      }],
       'transform-flow-strip-types'
     ]
   };

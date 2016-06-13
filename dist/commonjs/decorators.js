@@ -28,7 +28,6 @@ function autoinject(potentialTarget, potentialKey) {
     };
     return potentialTarget ? deco(potentialTarget, potentialKey) : deco;
 }
-
 function inject() {
     for (var _len = arguments.length, rest = Array(_len), _key = 0; _key < _len; _key++) {
         rest[_key] = arguments[_key];
@@ -51,13 +50,11 @@ function inject() {
         }
     };
 }
-
 function all(type) {
     return function (target, key, desc) {
         inject(_aureliaDependencyInjection.All.of(type))(target, key, desc ? desc : {});
     };
 }
-
 function parent(type) {
     return function (target, key, desc) {
         if (type === undefined) {
@@ -66,13 +63,11 @@ function parent(type) {
         inject(_aureliaDependencyInjection.Parent.of(type))(target, key, desc ? desc : {});
     };
 }
-
 function lazy(type) {
     return function (target, key, desc) {
         inject(_aureliaDependencyInjection.Lazy.of(type))(target, key, desc ? desc : {});
     };
 }
-
 function optional(type) {
     return function (target, key, desc) {
         if (type === undefined) {
@@ -81,7 +76,6 @@ function optional(type) {
         inject(_aureliaDependencyInjection.Optional.of(type))(target, key, desc ? desc : {});
     };
 }
-
 function factory(type) {
     return function (target, key, desc) {
         inject(_aureliaDependencyInjection.Factory.of(type))(target, key, desc ? desc : {});

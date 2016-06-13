@@ -25,5 +25,4 @@ function configure(frameworkConfiguration) {
         return new _invocationHandlerWrapper.InvocationHandlerWrapper(handler.fn, handler.invoker, handler.dependencies);
     });
 }
-
 exports.InvocationHandlerWrapper = _invocationHandlerWrapper.InvocationHandlerWrapper;

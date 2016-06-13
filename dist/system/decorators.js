@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['aurelia-metadata', 'aurelia-dependency-injection'], function (_export, _context) {
+    "use strict";
+
     var metadata, All, Parent, Lazy, Optional, Factory;
     return {
         setters: [function (_aureliaMetadata) {

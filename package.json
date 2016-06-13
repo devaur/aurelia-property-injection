@@ -1,6 +1,6 @@
 {
   "name": "aurelia-property-injection",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "description": "An extension to Aurelia's DI container which supports injection into properties.",
   "keywords": [
     "aurelia",
@@ -8,20 +8,21 @@
     "di",
     "dependency injection"
   ],
-  "homepage": "http://aurelia.io",
+  "homepage": "https://github.com/heruan/aurelia-property-injection",
   "bugs": {
-    "url": "https://github.com/heruan/property-injection/issues"
+    "url": "https://github.com/heruan/aurelia-property-injection/issues"
   },
   "license": "CC0-1.0",
   "author": "Giovanni Lovato <heruan@aldu.net>",
-  "main": "dist/commonjs/index.js",
+  "main": "dist/commonjs/aurelia-property-injection.js",
+  "typings": "dist/es2015/aurelia-property-injection.d.ts",
   "repository": {
     "type": "git",
-    "url": "http://github.com/heruan/property-injection"
+    "url": "https://github.com/heruan/aurelia-property-injection.git"
   },
   "devDependencies": {
-    "aurelia-tools": "^0.1.22",
-    "babel-dts-generator": "^0.4.7",
+    "aurelia-tools": "^0.1.18",
+    "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
     "babel-plugin-syntax-flow": "^6.5.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -34,14 +35,12 @@
     "babel-preset-stage-1": "^6.5.0",
     "conventional-changelog": "0.0.11",
     "del": "^1.1.0",
+    "fs": "0.0.2",
     "gulp": "^3.8.10",
     "gulp-babel": "^6.1.2",
     "gulp-bump": "^0.3.1",
-    "gulp-concat": "^2.6.0",
     "gulp-eslint": "^1.0.0",
-    "gulp-ignore": "^2.0.1",
-    "gulp-insert": "^0.5.0",
-    "gulp-rename": "^1.2.2",
+    "gulp-tsb": "^1.10.4",
     "gulp-yuidoc": "^0.1.2",
     "isparta": "^3.1.0",
     "istanbul": "^0.3.13",
@@ -54,25 +53,26 @@
     "karma-jasmine": "^0.3.5",
     "karma-jspm": "2.0.1-beta.2",
     "object.assign": "^1.0.3",
+    "path": "^0.12.7",
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
-    "through2": "^2.0.1",
+    "typescript": "^1.8.10",
     "vinyl-paths": "^1.0.0",
     "yargs": "^2.1.1"
   },
   "jspm": {
-    "registry": "npm",
+    "registry": "github",
     "main": "aurelia-property-injection",
     "format": "amd",
     "directories": {
       "dist": "dist/amd"
     },
     "dependencies": {
-      "aurelia-dependency-injection": "^1.0.0-beta.1.2.0",
-      "aurelia-metadata": "^1.0.0-beta.1.2.0"
+      "aurelia-dependency-injection": "npm:aurelia-dependency-injection@^1.0.0-beta.2.0.1",
+      "aurelia-metadata": "npm:aurelia-metadata@^1.0.0-beta.2.0.0"
     },
     "devDependencies": {
-      "aurelia-polyfills": "^1.0.0-beta.1.1.0"
+      "aurelia-polyfills": "npm:aurelia-polyfills@^1.0.0-beta.1.1.0"
     }
   }
 }

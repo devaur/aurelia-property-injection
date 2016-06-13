@@ -1,6 +1,8 @@
 "use strict";
 
 System.register(["./invocation-handler-wrapper", "./decorators"], function (_export, _context) {
+    "use strict";
+
     var InvocationHandlerWrapper;
     return {
         setters: [function (_invocationHandlerWrapper) {
