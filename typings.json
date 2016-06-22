@@ -1,8 +1,0 @@
-{
-  "name": "aurelia-property-injection",
-  "homepage": "https://github.com/heruan/aurelia-property-injection",
-  "version": "0.2.2",
-  "main": "dist/es2015/aurelia-property-injection.d.ts",
-  "dependencies": {
-  }
-}

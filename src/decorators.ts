@@ -5,7 +5,7 @@ import { All, Parent, Lazy, Optional, Factory } from 'aurelia-dependency-injecti
 * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
 */
 export function autoinject(potentialTarget?: any, potentialKey?: any): any {
-    let deco = function (target, key, descriptor) {
+    let deco = function (target, key, descriptor?) {
         if (key === undefined) {
             target.inject = metadata.getOwn(metadata.paramTypes, target, key) || Object.freeze([]);
         }
