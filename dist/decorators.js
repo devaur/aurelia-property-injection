@@ -100,4 +100,14 @@ function factory(type) {
     };
 }
 exports.factory = factory;
+/**
+ * Decorator: Used to inject a new instance of a dependency, without regard for existing
+ * instances in the container.
+ */
+function newInstance(type) {
+    return function (target, key, desc) {
+        inject(aurelia_dependency_injection_1.NewInstance.of(type))(target, key, desc ? desc : {});
+    };
+}
+exports.newInstance = newInstance;
 //# sourceMappingURL=decorators.js.map
