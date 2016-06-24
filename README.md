@@ -1,5 +1,7 @@
 # aurelia-property-injection
 
+[![CircleCI](https://circleci.com/gh/heruan/aurelia-property-injection.svg?style=shield)](https://circleci.com/gh/heruan/aurelia-property-injection)
+
 This plugin enables the core Aurelia's DI Container to inject dependencies into class instance properties,
 lifting the constructor from being the dependency bearer and decoupling child classes from parent dependencies.
 
