@@ -1,6 +1,6 @@
 {
   "name": "aurelia-property-injection",
-  "mail": "dist/index.d.ts",
+  "main": "dist/index.d.ts",
   "dependencies": {},
   "globalDevDependencies": {
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255"
