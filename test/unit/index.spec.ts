@@ -1,14 +1,16 @@
+/// <reference path="../../typings/globals/jasmine/index.d.ts" />
+
 import "aurelia-polyfills";
 import { decorators } from 'aurelia-metadata';
 import { Container, Lazy } from 'aurelia-dependency-injection';
-import { InvocationHandlerWrapper, inject, all, parent, optional, lazy, factory, newInstance } from '../dist/index';
+import { configure, autoinject, inject, all, parent, optional, lazy, factory, newInstance } from '../../src/index';
 
 function getContainer() {
-    let container = new Container();
-    container.setHandlerCreatedCallback((handler) => {
-        return new InvocationHandlerWrapper(handler.fn, handler.invoker, handler.dependencies);
-    });
-    return container;
+    const config = {
+      container: new Container()
+    };
+    configure(config);
+    return config.container;
 }
 
 describe('property-injection', () => {
@@ -16,7 +18,9 @@ describe('property-injection', () => {
     it('uses static injectProperties', () => {
         class Logger {}
 
-        class App {}
+        class App {
+          static injectProperties: any;
+        }
 
         App.injectProperties = {
             logger: Logger
@@ -25,28 +29,38 @@ describe('property-injection', () => {
         let container = getContainer();
         let app = container.get(App);
 
+        expect(app).toEqual(jasmine.any(App));
         expect(app.logger).toEqual(jasmine.any(Logger));
     });
 
-    it('calls afterConstructor hook', () => {
-        class Logger {}
-
-        class App {
-            afterConstructor() {
-                this.logger.check = true;
-            }
-        }
-
-        App.injectProperties = {
-            logger: Logger
-        };
-
-        let app = getContainer().get(App);
-
-        expect(app.logger.check).toBe(true);
-    });
-
     describe('with custom decorator', () => {
+
+        describe('@autoinject', () => {
+            it('injects dependency in constructor', () => {
+                class Logger {}
+
+                @autoinject
+                class App {
+                  constructor (public logger: Logger) {}
+                }
+
+                let app = getContainer().get(App);
+
+                expect(app.logger).toEqual(jasmine.any(Logger));
+            });
+
+            it('injects the required dependency', () => {
+                class Logger {}
+
+                class App {
+                    @autoinject logger: Logger;
+                }
+
+                let app = getContainer().get(App);
+
+                expect(app.logger).toEqual(jasmine.any(Logger));
+            });
+        });
 
         describe('@inject', () => {
             it('injects the required dependency', () => {
@@ -208,16 +222,10 @@ describe('property-injection', () => {
         });
 
         describe('@factory', () => {
-            let container;
-            let app;
-            let logger;
-            let service;
             let data = 'test';
 
-            class Logger {}
-
             class Service {
-                @factory(Logger) getLogger;
+                data: any;
 
                 constructor(data) {
                     this.data = data;
@@ -227,23 +235,21 @@ describe('property-injection', () => {
             class App {
                 @factory(Service) GetService;
 
-                afterConstructor() {
+                service;
+
+                constructor() {
                     this.service = new this.GetService(data);
                 }
             }
 
-            beforeEach(() => {
-                container = getContainer();
-            });
-
             it('provides a function which, when called, will return the instance', () => {
-                app = container.get(App);
-                service = app.GetService;
+                const app = getContainer().get(App);
+                const service = app.GetService;
                 expect(service()).toEqual(jasmine.any(Service));
             });
 
             it('passes data in to the constructor as the second argument', () => {
-                app = container.get(App);
+                const app = getContainer().get(App);
                 expect(app.service.data).toEqual(data);
             });
         });

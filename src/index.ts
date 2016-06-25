@@ -6,5 +6,4 @@ export function configure(frameworkConfiguration) {
     );
 }
 
-export {InvocationHandlerWrapper};
 export * from "./decorators";
