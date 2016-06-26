@@ -55,12 +55,14 @@ describe('property-injection', () => {
 
                 @autoinject
                 class App {
+                  @autoinject logger2: Logger;
                   constructor (public logger: Logger) {}
                 }
 
                 let app = getContainer().get(App);
 
                 expect(app.logger).toEqual(jasmine.any(Logger));
+                expect(app.logger).toBe(app.logger2);
             });
 
             it('injects the required dependency', () => {
