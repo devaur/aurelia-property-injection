@@ -1,9 +1,11 @@
-import { InvocationHandlerWrapper } from './invocation-handler-wrapper';
+import { InvocationHandler } from './invocation-handler';
+
+export * from './decorators';
 
 export function configure(frameworkConfiguration) {
     frameworkConfiguration.container.setHandlerCreatedCallback(handler =>
-        new InvocationHandlerWrapper(handler.fn, handler.invoker, handler.dependencies)
+        (<any>handler.fn).injectProperties ?
+          new InvocationHandler(handler.fn, handler.invoker, handler.dependencies) :
+          handler
     );
 }
-
-export * from "./decorators";

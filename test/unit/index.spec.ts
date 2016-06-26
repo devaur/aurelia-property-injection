@@ -1,9 +1,9 @@
 /// <reference path="../../typings/globals/jasmine/index.d.ts" />
 
 import "aurelia-polyfills";
-import { decorators } from 'aurelia-metadata';
-import { Container, Lazy } from 'aurelia-dependency-injection';
+import { Container } from 'aurelia-dependency-injection';
 import { configure, autoinject, inject, all, parent, optional, lazy, factory, newInstance } from '../../src/index';
+import { InvocationHandler } from '../../src/invocation-handler';
 
 function getContainer() {
     const config = {
@@ -22,15 +22,29 @@ describe('property-injection', () => {
           static injectProperties: any;
         }
 
+        spyOn(InvocationHandler.prototype, 'invoke').and.callThrough();
         App.injectProperties = {
             logger: Logger
         };
 
-        let container = getContainer();
-        let app = container.get(App);
+        let app = getContainer().get(App);
 
+        expect(InvocationHandler.prototype.invoke).toHaveBeenCalled();
         expect(app).toEqual(jasmine.any(App));
         expect(app.logger).toEqual(jasmine.any(Logger));
+    });
+
+    describe('configure', () => {
+        it('returns original handler if no injectProperties', () => {
+          spyOn(InvocationHandler.prototype, 'invoke');
+
+          class App {}
+
+          const app = getContainer().get(App);
+
+          expect(InvocationHandler.prototype.invoke).not.toHaveBeenCalled();
+          expect(app).toEqual(jasmine.any(App));
+        });
     });
 
     describe('with custom decorator', () => {
