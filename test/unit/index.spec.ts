@@ -170,10 +170,10 @@ describe('property-injection', () => {
                 container.registerTransient(Logger, LaconicLogger);
                 let app = container.get(App);
 
-                expect(app.loggers).toEqual(jasmine.any(Array));
-                expect(app.loggers.length).toBe(2);
-                expect(app.loggers[0]).toEqual(jasmine.any(VerboseLogger));
-                expect(app.loggers[1]).toEqual(jasmine.any(LaconicLogger));
+                expect(app.loggers).toEqual([
+                    jasmine.any(VerboseLogger),
+                    jasmine.any(LaconicLogger)
+                ]);
             });
         });
 
@@ -261,8 +261,9 @@ describe('property-injection', () => {
                 childContainer.registerInstance(Logger, childInstance);
                 childContainer.registerSingleton(App, App);
 
-                let app = childContainer.get(App);
+                const app = childContainer.get(App);
 
+                expect(childContainer.get(Logger)).toBe(childInstance);
                 expect(app.logger).toBe(parentInstance);
             });
 
@@ -279,7 +280,7 @@ describe('property-injection', () => {
 
                 let app = container.get(App);
 
-                expect(app.logger).toBe(null);
+                expect(app.logger).toBeNull();
             });
         });
 
