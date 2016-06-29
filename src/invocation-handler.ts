@@ -1,9 +1,44 @@
-import { Container, InvocationHandler as BaseInvocationHandler } from 'aurelia-dependency-injection';
+import { Container, InvocationHandler } from 'aurelia-dependency-injection';
 
 /**
 * Invocation handler to inject properties.
 */
-export class InvocationHandler extends BaseInvocationHandler {
+export class PropertyInvocationHandler extends InvocationHandler {
+
+    /**
+    * Invokes the function.
+    * @param container The calling container.
+    * @param dynamicDependencies Additional dependencies to use during invocation.
+    * @return The result of the function invocation.
+    */
+    invoke(container: Container, dynamicDependencies?: any[]): any {
+        const instance = super.invoke(container, dynamicDependencies);
+        return this.injectProperties(container, instance);
+    }
+
+    /**
+    * Injects property dependencies if the conventional `injectProperties` is defined.
+    * @param container The calling container.
+    * @param instance The target of injection.
+    * @return The instance with injected properties.
+    */
+    injectProperties(container: Container, instance: any): any {
+        const injectProperties = (<any>this.fn).injectProperties;
+        for (let property in injectProperties) {
+            instance[property] = container.get(injectProperties[property]);
+        }
+        if (instance.afterConstructor) {
+            instance.afterConstructor.call(instance);
+        }
+        return instance;
+    }
+
+}
+
+/**
+* Invocation handler to inject properties available in constructor.
+*/
+export class PropertyConstructorInvocationHandler extends InvocationHandler {
 
   /**
   * Invokes the function.

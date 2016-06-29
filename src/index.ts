@@ -1,11 +1,12 @@
-import { InvocationHandler } from './invocation-handler';
+import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from './invocation-handler';
 
 export * from './decorators';
 
-export function configure(frameworkConfiguration) {
+export function configure(frameworkConfiguration, config) {
+    const Handler = config && config.injectConstructor ? PropertyConstructorInvocationHandler : PropertyInvocationHandler; 
     frameworkConfiguration.container.setHandlerCreatedCallback(handler =>
         (<any>handler.fn).injectProperties ?
-          new InvocationHandler(handler.fn, null, handler.dependencies) :
+          new Handler(handler.fn, handler.invoker, handler.dependencies) :
           handler
     );
 }
