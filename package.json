@@ -21,6 +21,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "coverage": "gulp test && sed -i '' 's#..\/..\/..\/..\/..\/#..\/..\/..\/#g' test/dist/src/*.map && gulp remap-istanbul",
     "test": "gulp test"
   },
   "dependencies": {
@@ -38,10 +39,12 @@
     "babel-register": "^6.9.0",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
+    "gulp-istanbul": "^1.0.0",
     "gulp-jasmine": "^2.4.0",
     "gulp-tsb": "^1.10.4",
     "jasmine": "^2.4.1",
     "jasmine-reporters": "^2.2.0",
+    "remap-istanbul": "^0.6.4",
     "run-sequence": "^1.2.1",
     "typescript": "^1.8.10",
     "vinyl-paths": "^2.1.0"

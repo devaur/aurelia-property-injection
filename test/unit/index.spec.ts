@@ -103,7 +103,9 @@ describe('property-injection', () => {
                   constructor (public logger: Logger) {}
                 }
 
-                let app = getContainer().get(App);
+                let app = getContainer({
+                    injectConstructor: true
+                }).get(App);
 
                 expect(app.logger).toEqual(jasmine.any(Logger));
                 expect(app.logger).toBe(app.logger2);
