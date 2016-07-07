@@ -1,42 +1,51 @@
 import { metadata } from 'aurelia-metadata';
 import { All, Parent, Lazy, Optional, Factory, NewInstance } from 'aurelia-dependency-injection';
 
+var metadataType = 'design:type';
+var emptyParameters = Object.freeze([]);
+
 /**
 * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
 */
 export function autoinject(potentialTarget?: any, potentialKey?: any): any {
-    let deco = function (target, key, descriptor?) {
-        if (key === undefined) {
-            target.inject = metadata.getOwn(metadata.paramTypes, target, key) || Object.freeze([]);
-        } else if (descriptor === undefined) {
-            if (target.constructor.injectProperties === undefined) {
+    const deco = function (target, key, descriptor?) {
+        if (!key) {
+            target.inject = metadata.getOwn(metadata.paramTypes, target, key) || emptyParameters;
+        } else if (!descriptor) {
+            if (!target.constructor.injectProperties) {
                 target.constructor.injectProperties = Object.create(null);
             }
-            target.constructor.injectProperties[key] = metadata.getOwn("design:type", target, key);
+            target.constructor.injectProperties[key] = metadata.getOwn(metadataType, target, key);
         }
     };
     return potentialTarget ? deco(potentialTarget, potentialKey) : deco;
 }
 
+function injectFn (target, key, descriptor, ...inject: any[]) {
+    if (key) {
+        if (descriptor && descriptor.configurable) {
+            descriptor.value.inject = inject;
+        } else {
+            let injectProperties = target.constructor.injectProperties;
+            if (!injectProperties) {
+                target.constructor.injectProperties = injectProperties = Object.create(null);
+            }
+            injectProperties[key] = inject[0];
+            if (descriptor) {
+                descriptor.writable = true;
+            }
+        }
+    } else {
+        target.inject = inject;
+    }
+};
+
 /**
 * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
 */
-export function inject(...rest: any[]): any {
+export function inject(...rest: any[]): Function {
     return function (target, key, descriptor) {
-        if (key !== undefined) {
-            if (descriptor.configurable) {
-                const fn = descriptor.value;
-                fn.inject = rest;
-            } else {
-                if (target.constructor.injectProperties === undefined) {
-                    target.constructor.injectProperties = Object.create(null);
-                }
-                target.constructor.injectProperties[key] = rest[0];
-                descriptor.writable = true;
-            }
-        } else {
-            target.inject = rest;
-        }
+      injectFn(target, key, descriptor, ...rest);
     };
 }
 
@@ -45,7 +54,7 @@ export function inject(...rest: any[]): any {
  */
 export function all(type) {
     return function (target, key, desc?) {
-        inject(All.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, All.of(type));
     };
 }
 
@@ -54,11 +63,11 @@ export function all(type) {
  */
 export function parent(type) {
     return function(target, key, desc?) {
-        if (type === undefined) {
+        if (!type) {
             // typescript
-            type = metadata.get('design:type', target, key);
+            type = metadata.get(metadataType, target, key);
         }
-        inject(Parent.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, Parent.of(type));
     };
 }
 
@@ -67,7 +76,7 @@ export function parent(type) {
  */
 export function lazy(type) {
     return function(target, key, desc?) {
-        inject(Lazy.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, Lazy.of(type));
     };
 }
 
@@ -76,11 +85,11 @@ export function lazy(type) {
  */
 export function optional(type) {
     return function(target, key, desc?) {
-        if (type === undefined) {
+        if (!type) {
             // typescript
-            type = metadata.get('design:type', target, key);
+            type = metadata.get(metadataType, target, key);
         }
-        inject(Optional.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, Optional.of(type));
     };
 }
 
@@ -89,7 +98,7 @@ export function optional(type) {
  */
 export function factory(type) {
     return function (target, key, desc?) {
-        inject(Factory.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, Factory.of(type));
     };
 }
 
@@ -99,6 +108,6 @@ export function factory(type) {
  */
 export function newInstance(type) {
     return function (target, key, desc?) {
-        inject(NewInstance.of(type))(target, key, desc ? desc : {});
+        injectFn(target, key, desc, NewInstance.of(type));
     };
 }

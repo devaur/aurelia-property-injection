@@ -1,10 +1,12 @@
-import { InvocationHandlerWrapper } from "./invocation-handler-wrapper";
+import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from './invocation-handler';
 
-export function configure(frameworkConfiguration) {
-    frameworkConfiguration.container.setHandlerCreatedCallback((handler) => {
-        return new InvocationHandlerWrapper(handler.fn, handler.invoker, handler.dependencies);
-    });
+export * from './decorators';
+
+export function configure(frameworkConfiguration, config) {
+    const Handler = config && config.injectConstructor ? PropertyConstructorInvocationHandler : PropertyInvocationHandler; 
+    frameworkConfiguration.container.setHandlerCreatedCallback(handler =>
+        (<any>handler.fn).injectProperties ?
+          new Handler(handler.fn, handler.invoker, handler.dependencies) :
+          handler
+    );
 }
-
-export {InvocationHandlerWrapper};
-export * from "./decorators";
