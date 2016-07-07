@@ -1,0 +1,7 @@
+/coverage
+/src
+/test
+/typings
+/.*
+/gulpfile.babel.js
+/*.json
