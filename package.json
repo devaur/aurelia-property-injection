@@ -1,6 +1,6 @@
 {
   "name": "aurelia-property-injection",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "An extension to Aurelia's DI container which supports injection into properties.",
   "keywords": [
     "aurelia",
@@ -9,14 +9,17 @@
     "dependency injection"
   ],
   "author": "Giovanni Lovato <heruan@aldu.net>",
+  "contributors": [
+    "Matjaž Lipuš <matjazl@gmail.com>"
+  ],
   "license": "CC0-1.0",
-  "homepage": "https://github.com/heruan/aurelia-property-injection",
+  "homepage": "https://github.com/devaur/aurelia-property-injection",
   "bugs": {
-    "url": "https://github.com/heruan/aurelia-property-injection/issues"
+    "url": "https://github.com/devaur/aurelia-property-injection/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heruan/aurelia-property-injection.git"
+    "url": "https://github.com/devaur/aurelia-property-injection.git"
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -45,7 +48,7 @@
     "jasmine": "^2.4.1",
     "jasmine-reporters": "^2.2.0",
     "remap-istanbul": "^0.6.4",
-    "run-sequence": "^1.2.1",
+    "run-sequence": "^1.2.2",
     "typescript": "^1.8.10",
     "vinyl-paths": "^2.1.0"
   }
