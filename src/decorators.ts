@@ -21,7 +21,7 @@ export function autoinject(potentialTarget?: any, potentialKey?: any): any {
     return potentialTarget ? deco(potentialTarget, potentialKey) : deco;
 }
 
-function injectFn (target, key, descriptor, ...inject: any[]) {
+function injectFn(target, key, descriptor, ...inject: any[]) {
     if (key) {
         if (descriptor && descriptor.configurable) {
             descriptor.value.inject = inject;
@@ -45,7 +45,7 @@ function injectFn (target, key, descriptor, ...inject: any[]) {
 */
 export function inject(...rest: any[]): Function {
     return function (target, key, descriptor) {
-      injectFn(target, key, descriptor, ...rest);
+        injectFn(target, key, descriptor, ...rest);
     };
 }
 

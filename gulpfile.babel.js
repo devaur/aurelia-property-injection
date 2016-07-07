@@ -40,7 +40,7 @@ gulp.task('test', ['build-unit-test'], () =>
             reporters: ['json']
         }))
 );
-gulp.task('remap-istanbul', () => 
+gulp.task('remap-istanbul', () =>
     gulp.src('coverage/coverage-final.json')
         .pipe(remapIstanbul({
             reports: {
@@ -49,5 +49,4 @@ gulp.task('remap-istanbul', () =>
             }
         }))
 );
-
 gulp.task("default", () => run("build", "test"));

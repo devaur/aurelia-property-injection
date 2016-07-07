@@ -3,14 +3,26 @@
     "rootDir": "src",
     "outDir": "dist",
     "target": "es5",
-    "lib": ["es2015", "dom"],
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "sourceMap": true,
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "compileOnSave": false,
+  "files": [
+    "src/decorators.ts",
+    "src/index.ts",
+    "src/invocation-handler.ts",
+    "typings/index.d.ts"
+  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "compileOnSave": false,
+  "atom": {
+    "rewriteTsconfig": true
+  }
 }

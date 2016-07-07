@@ -5,7 +5,7 @@ export declare function autoinject(potentialTarget?: any, potentialKey?: any): a
 /**
 * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
 */
-export declare function inject(...rest: any[]): any;
+export declare function inject(...rest: any[]): Function;
 /**
  * Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
  */
