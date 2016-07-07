@@ -47,36 +47,12 @@ export class MyClass {
 }
 ```
 
-Like in other languages DI implementations (e.g. Java CDI), injection into properties cannot make
-the dependencies available inside the constructor, so this plugin will also instruct the Container
-to invoke a conventional `afterConstructor` callback right after the injection occurs; i.e.
-
-```javascript
-import {inject} from 'aurelia-property-injection';
-import {Router} from 'aurelia-router';
-
-export class MyClass {
-
-  @inject(Router)
-  router;
-
-  constructor() {
-      console.log(this.router); // => undefined
-  }
-
-  afterConstructor() {
-      console.log(this.router); // => the current Router instance
-  }
-
-}
-```
-
 ## Installing the plugin
 
-Install the plugin via JSPM:
+Install the plugin via NPM:
 
 ```shell
-jspm install aurelia-property-injection=github:heruan/aurelia-property-injection
+npm install --save aurelia-property-injection
 ```
 
 ## Enabling the plugin
