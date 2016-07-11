@@ -106,8 +106,8 @@ export function factory(type) {
  * Decorator: Used to inject a new instance of a dependency, without regard for existing
  * instances in the container.
  */
-export function newInstance(type) {
+export function newInstance(type, ...dynamicDependencies: any[]) {
     return function (target, key, desc?) {
-        injectFn(target, key, desc, NewInstance.of(type));
+        injectFn(target, key, desc, NewInstance.of(type, ...dynamicDependencies));
     };
 }

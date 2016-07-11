@@ -30,4 +30,4 @@ export declare function factory(type: any): (target: any, key: any, desc?: any) 
  * Decorator: Used to inject a new instance of a dependency, without regard for existing
  * instances in the container.
  */
-export declare function newInstance(type: any): (target: any, key: any, desc?: any) => void;
+export declare function newInstance(type: any, ...dynamicDependencies: any[]): (target: any, key: any, desc?: any) => void;

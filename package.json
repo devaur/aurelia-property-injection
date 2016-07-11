@@ -24,11 +24,11 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "coverage": "gulp test && sed -i '' 's#..\/..\/..\/..\/..\/#..\/..\/..\/#g' test/dist/src/*.map && gulp remap-istanbul",
+    "coverage": "gulp test && sed -i '' 's#../../../../../#../../../#g' test/dist/src/*.map && gulp remap-istanbul",
     "test": "gulp test"
   },
   "dependencies": {
-    "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
+    "aurelia-dependency-injection": "github:heruan/dependency-injection#new-instance-dyn-dist",
     "aurelia-metadata": "^1.0.0-rc.1.0.0"
   },
   "devDependencies": {

@@ -117,8 +117,12 @@ exports.factory = factory;
  * instances in the container.
  */
 function newInstance(type) {
+    var dynamicDependencies = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        dynamicDependencies[_i - 1] = arguments[_i];
+    }
     return function (target, key, desc) {
-        injectFn(target, key, desc, aurelia_dependency_injection_1.NewInstance.of(type));
+        injectFn(target, key, desc, aurelia_dependency_injection_1.NewInstance.of.apply(aurelia_dependency_injection_1.NewInstance, [type].concat(dynamicDependencies)));
     };
 }
 exports.newInstance = newInstance;
