@@ -1,10 +1,10 @@
 /**
-* Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
-*/
+ * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
+ */
 export declare function autoinject(potentialTarget?: any, potentialKey?: any): any;
 /**
-* Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
-*/
+ * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
+ */
 export declare function inject(...rest: any[]): Function;
 /**
  * Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
@@ -30,4 +30,4 @@ export declare function factory(type: any): (target: any, key: any, desc?: any) 
  * Decorator: Used to inject a new instance of a dependency, without regard for existing
  * instances in the container.
  */
-export declare function newInstance(type: any): (target: any, key: any, desc?: any) => void;
+export declare function newInstance(type: any, ...dynamicDependencies: any[]): (target: any, key: any, desc?: any) => void;

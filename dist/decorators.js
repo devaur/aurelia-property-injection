@@ -1,11 +1,12 @@
 "use strict";
 var aurelia_metadata_1 = require('aurelia-metadata');
 var aurelia_dependency_injection_1 = require('aurelia-dependency-injection');
+var resolvers_1 = require('./resolvers');
 var metadataType = 'design:type';
 var emptyParameters = Object.freeze([]);
 /**
-* Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
-*/
+ * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
+ */
 function autoinject(potentialTarget, potentialKey) {
     var deco = function (target, key, descriptor) {
         if (!key) {
@@ -47,8 +48,8 @@ function injectFn(target, key, descriptor) {
 }
 ;
 /**
-* Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
-*/
+ * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
+ */
 function inject() {
     var rest = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -117,8 +118,12 @@ exports.factory = factory;
  * instances in the container.
  */
 function newInstance(type) {
+    var dynamicDependencies = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        dynamicDependencies[_i - 1] = arguments[_i];
+    }
     return function (target, key, desc) {
-        injectFn(target, key, desc, aurelia_dependency_injection_1.NewInstance.of(type));
+        injectFn(target, key, desc, resolvers_1.DynamicNewInstance.of.apply(resolvers_1.DynamicNewInstance, [type].concat(dynamicDependencies)));
     };
 }
 exports.newInstance = newInstance;
