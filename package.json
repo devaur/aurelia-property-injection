@@ -27,6 +27,10 @@
     "coverage": "gulp test && sed -i '' 's#..\/..\/..\/..\/..\/#..\/..\/..\/#g' test/dist/src/*.map && gulp remap-istanbul",
     "test": "gulp test"
   },
+  "files": [
+    "dist/*",
+    "typings.json"
+  ],
   "dependencies": {
     "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
     "aurelia-metadata": "^1.0.0-rc.1.0.0"
