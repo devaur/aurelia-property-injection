@@ -1,12 +1,13 @@
 import { metadata } from 'aurelia-metadata';
-import { All, Parent, Lazy, Optional, Factory, NewInstance } from 'aurelia-dependency-injection';
+import { Container, All, Parent, Lazy, Optional, Factory, NewInstance } from 'aurelia-dependency-injection';
+import { DynamicNewInstance } from './resolvers';
 
 var metadataType = 'design:type';
 var emptyParameters = Object.freeze([]);
 
 /**
-* Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
-*/
+ * Decorator: Directs the TypeScript transpiler to write-out type metadata for the decorated class/property.
+ */
 export function autoinject(potentialTarget?: any, potentialKey?: any): any {
     const deco = function (target, key, descriptor?) {
         if (!key) {
@@ -41,8 +42,8 @@ function injectFn(target, key, descriptor, ...inject: any[]) {
 };
 
 /**
-* Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
-*/
+ * Decorator: Specifies the dependencies that should be injected by the DI Container into the decorated class/function/property.
+ */
 export function inject(...rest: any[]): Function {
     return function (target, key, descriptor) {
         injectFn(target, key, descriptor, ...rest);
@@ -97,7 +98,7 @@ export function optional(type) {
  * Decorator: Used to allow injecting dependencies but also passing data to the constructor.
  */
 export function factory(type) {
-    return function (target, key, desc?) {
+    return function(target, key, desc?) {
         injectFn(target, key, desc, Factory.of(type));
     };
 }
@@ -106,8 +107,8 @@ export function factory(type) {
  * Decorator: Used to inject a new instance of a dependency, without regard for existing
  * instances in the container.
  */
-export function newInstance(type) {
+export function newInstance(type, ...dynamicDependencies: any[]) {
     return function (target, key, desc?) {
-        injectFn(target, key, desc, NewInstance.of(type));
+        injectFn(target, key, desc, DynamicNewInstance.of(type, ...dynamicDependencies));
     };
 }

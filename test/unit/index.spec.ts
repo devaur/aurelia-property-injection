@@ -1,7 +1,7 @@
 /// <reference path="../../typings/index.d.ts" />
 
 import "aurelia-polyfills";
-import { Container } from 'aurelia-dependency-injection';
+import { Container, Lazy } from 'aurelia-dependency-injection';
 import { configure, autoinject, inject, all, parent, optional, lazy, factory, newInstance } from '../../src/index';
 import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from '../../src/invocation-handler';
 
@@ -223,26 +223,7 @@ describe('property-injection', () => {
                 expect(app.logger).toBe(null);
             });
 
-            it('doesn\'t check the parent container hierarchy', () => {
-                class Logger {}
-
-                class App {
-                    @optional(Logger) logger;
-                }
-
-                let parentContainer = getContainer();
-                parentContainer.registerSingleton(Logger, Logger);
-
-                let childContainer = parentContainer.createChild();
-                childContainer.registerSingleton(App, App);
-
-                let app = childContainer.get(App);
-
-                expect(app.logger).toBe(null);
-            });
-
         });
-
 
         describe('@parent', () => {
             it('bypasses the current container and injects instance from parent container', () => {
@@ -333,6 +314,26 @@ describe('property-injection', () => {
                 expect(app.fooLogger).toEqual(jasmine.any(Logger));
                 expect(app.barLogger).toEqual(jasmine.any(Logger));
                 expect(app.fooLogger).not.toBe(app.barLogger);
+            });
+            it('provides a new instance of the dependency with dynamics dependencies', () => {
+                class Logger {
+                    dep: Dependency;
+                    constructor(dep) {
+                        this.dep = dep;
+                    }
+                }
+
+                class Dependency {}
+
+                class App {
+                    @newInstance(Logger, Dependency) fooLogger;
+                    @newInstance(Logger, Lazy.of(Dependency)) barLogger;
+                }
+
+                let app = getContainer().get(App);
+
+                expect(app.fooLogger.dep).toEqual(jasmine.any(Dependency));
+                expect(app.barLogger.dep()).toEqual(jasmine.any(Dependency));
             });
         });
 
