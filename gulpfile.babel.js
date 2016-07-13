@@ -44,6 +44,7 @@ gulp.task('remap-istanbul', () =>
     gulp.src('coverage/coverage-final.json')
         .pipe(remapIstanbul({
             reports: {
+                'lcovonly': 'coverage/lcov.info',
                 'json': 'coverage/coverage.json',
                 'html': 'coverage/html-report'
             }
