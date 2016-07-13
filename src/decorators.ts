@@ -1,5 +1,6 @@
 import { metadata } from 'aurelia-metadata';
-import { All, Parent, Lazy, Optional, Factory, NewInstance } from 'aurelia-dependency-injection';
+import { Container, All, Parent, Lazy, Optional, Factory, NewInstance } from 'aurelia-dependency-injection';
+import { DynamicNewInstance } from './resolvers';
 
 var metadataType = 'design:type';
 var emptyParameters = Object.freeze([]);
@@ -50,8 +51,8 @@ export function inject(...rest: any[]): Function {
 }
 
 /**
- * Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
- */
+* Decorator: Used to allow functions/classes to specify resolution of all matches to a key.
+*/
 export function all(type) {
     return function (target, key, desc?) {
         injectFn(target, key, desc, All.of(type));
@@ -59,8 +60,8 @@ export function all(type) {
 }
 
 /**
- * Decorator: Used to inject the dependency from the parent container instead of the current one.
- */
+* Decorator: Used to inject the dependency from the parent container instead of the current one.
+*/
 export function parent(type) {
     return function(target, key, desc?) {
         if (!type) {
@@ -72,8 +73,8 @@ export function parent(type) {
 }
 
 /**
- * Decorator: Used to allow functions/classes to specify lazy resolution logic.
- */
+* Decorator: Used to allow functions/classes to specify lazy resolution logic.
+*/
 export function lazy(type) {
     return function(target, key, desc?) {
         injectFn(target, key, desc, Lazy.of(type));
@@ -81,8 +82,8 @@ export function lazy(type) {
 }
 
 /**
- * Decorator: Used to allow functions/classes to specify an optional dependency, which will be resolved only if already registred with the container.
- */
+* Decorator: Used to allow functions/classes to specify an optional dependency, which will be resolved only if already registred with the container.
+*/
 export function optional(type) {
     return function(target, key, desc?) {
         if (!type) {
@@ -94,20 +95,20 @@ export function optional(type) {
 }
 
 /**
- * Decorator: Used to allow injecting dependencies but also passing data to the constructor.
- */
+* Decorator: Used to allow injecting dependencies but also passing data to the constructor.
+*/
 export function factory(type) {
-    return function (target, key, desc?) {
+    return function(target, key, desc?) {
         injectFn(target, key, desc, Factory.of(type));
     };
 }
 
 /**
- * Decorator: Used to inject a new instance of a dependency, without regard for existing
- * instances in the container.
- */
+* Decorator: Used to inject a new instance of a dependency, without regard for existing
+* instances in the container.
+*/
 export function newInstance(type, ...dynamicDependencies: any[]) {
     return function (target, key, desc?) {
-        injectFn(target, key, desc, NewInstance.of(type, ...dynamicDependencies));
+        injectFn(target, key, desc, DynamicNewInstance.of(type, ...dynamicDependencies));
     };
 }

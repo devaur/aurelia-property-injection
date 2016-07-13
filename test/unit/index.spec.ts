@@ -317,6 +317,7 @@ describe('property-injection', () => {
             });
             it('provides a new instance of the dependency with dynamics dependencies', () => {
                 class Logger {
+                    dep: Dependency;
                     constructor(dep) {
                         this.dep = dep;
                     }
