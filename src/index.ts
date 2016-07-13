@@ -1,7 +1,6 @@
 import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from './invocation-handler';
 
 export * from './decorators';
-export * from './resolvers';
 
 export function configure(frameworkConfiguration, config) {
     const Handler = config && config.injectConstructor ? PropertyConstructorInvocationHandler : PropertyInvocationHandler;
