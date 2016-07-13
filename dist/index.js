@@ -4,6 +4,7 @@ function __export(m) {
 }
 var invocation_handler_1 = require('./invocation-handler');
 __export(require('./decorators'));
+__export(require('./resolvers'));
 function configure(frameworkConfiguration, config) {
     var Handler = config && config.injectConstructor ? invocation_handler_1.PropertyConstructorInvocationHandler : invocation_handler_1.PropertyInvocationHandler;
     frameworkConfiguration.container.setHandlerCreatedCallback(function (handler) {
