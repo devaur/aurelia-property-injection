@@ -51,6 +51,9 @@ export class PropertyConstructorInvocationHandler extends InvocationHandler {
         const injectProps = Object.create(null);
         for (let property in injectProperties) {
             injectProps[property] = {
+                configurable: true,
+                enumerable: true,
+                writable: true,
                 value: container.get(injectProperties[property])
             };
         }

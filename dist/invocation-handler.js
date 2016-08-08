@@ -61,6 +61,9 @@ var PropertyConstructorInvocationHandler = (function (_super) {
         var injectProps = Object.create(null);
         for (var property in injectProperties) {
             injectProps[property] = {
+                configurable: true,
+                enumerable: true,
+                writable: true,
                 value: container.get(injectProperties[property])
             };
         }
