@@ -1,9 +1,7 @@
-/// <reference path="../../typings/index.d.ts" />
-
 import "aurelia-polyfills";
 import { Container, Lazy } from 'aurelia-dependency-injection';
-import { configure, autoinject, inject, all, parent, optional, lazy, factory, newInstance } from '../../src/index';
-import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from '../../src/invocation-handler';
+import { configure, autoinject, inject, all, parent, optional, lazy, factory, newInstance } from '../../main/index';
+import { PropertyInvocationHandler, PropertyConstructorInvocationHandler } from '../../main/invocation-handler';
 
 function getContainer(config?: any) {
     const container = new Container()

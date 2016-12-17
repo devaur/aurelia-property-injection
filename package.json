@@ -1,6 +1,6 @@
 {
   "name": "aurelia-property-injection",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "description": "An extension to Aurelia's DI container which supports injection into properties.",
   "keywords": [
     "aurelia",
@@ -21,40 +21,41 @@
     "type": "git",
     "url": "https://github.com/devaur/aurelia-property-injection.git"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/main/index.js",
+  "typings": "dist/main/index.d.ts",
   "scripts": {
-    "coverage": "gulp test && sed -i '' 's#..\/..\/..\/..\/..\/#..\/..\/..\/#g' test/dist/src/*.map && gulp remap-istanbul",
+    "coverage": "gulp test && gulp remap-istanbul",
     "test": "gulp test"
   },
   "files": [
-    "dist/*",
-    "src/*",
-    "typings.json"
+    "dist/main/*"
   ],
   "dependencies": {
-    "aurelia-dependency-injection": "^1.0.0-rc.1.0.0",
-    "aurelia-metadata": "^1.0.0-rc.1.0.0"
+    "aurelia-dependency-injection": "^1.2.1",
+    "aurelia-metadata": "^1.0.2"
   },
   "devDependencies": {
-    "aurelia-polyfills": "^1.0.0-rc.1.0.0",
-    "babel-plugin-syntax-flow": "^6.8.0",
+    "@types/jasmine": "^2.5.38",
+    "aurelia-polyfills": "^1.1.1",
+    "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-flow-strip-types": "^6.8.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-es2015-loose": "^7.0.0",
-    "babel-preset-stage-1": "^6.5.0",
-    "babel-register": "^6.9.0",
-    "del": "^2.2.1",
+    "babel-plugin-transform-flow-strip-types": "^6.21.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-istanbul": "^1.0.0",
-    "gulp-jasmine": "^2.4.0",
-    "gulp-tsb": "^1.10.4",
-    "jasmine": "^2.4.1",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-jasmine": "^2.4.2",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-typescript": "^3.1.3",
+    "jasmine": "^2.5.2",
     "jasmine-reporters": "^2.2.0",
-    "remap-istanbul": "^0.6.4",
+    "merge2": "^1.0.2",
+    "remap-istanbul": "^0.8.0",
     "run-sequence": "^1.2.2",
-    "typescript": "^1.8.10",
+    "typescript": "^2.1.4",
     "vinyl-paths": "^2.1.0"
   }
 }
