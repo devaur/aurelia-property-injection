@@ -7,17 +7,14 @@
       "es2015",
       "dom"
     ],
+    "types": [
+      "jasmine"
+    ],
     "sourceMap": true,
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "files": [
-    "src/decorators.ts",
-    "src/index.ts",
-    "src/invocation-handler.ts",
-    "typings/index.d.ts"
-  ],
   "exclude": [
     "node_modules"
   ],
